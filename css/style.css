@@ -1,0 +1,72 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f7fb;
+  color: #1f2933;
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.hero {
+  background: white;
+  padding: 48px;
+  border-radius: 24px;
+  margin-bottom: 32px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.tag {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #2563eb;
+  margin-bottom: 12px;
+}
+
+h1 {
+  font-size: 52px;
+  margin: 0 0 16px 0;
+  line-height: 1.05;
+}
+
+.subtitle {
+  font-size: 21px;
+  line-height: 1.5;
+  max-width: 780px;
+  color: #4b5563;
+}
+
+.section-card {
+  background: white;
+  padding: 32px;
+  border-radius: 22px;
+  margin-bottom: 28px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.section-card h2 {
+  font-size: 28px;
+  margin-top: 0;
+}
+
+.section-card p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #4b5563;
+}
+
+.vis-container {
+  width: 100%;
+  margin-top: 24px;
+}
+
+footer {
+  font-size: 14px;
+  color: #6b7280;
+  padding: 24px 4px 40px 4px;
+}
