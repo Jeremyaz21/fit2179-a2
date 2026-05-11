@@ -204,6 +204,15 @@ h1 {
   min-height: 320px;
 }
 
+.source-note {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #e5edf5;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #64748b;
+}
+
 /* FOOTER */
 
 footer {

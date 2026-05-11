@@ -68,7 +68,7 @@ function embedChart(id, title) {
 var arrivalsTimeline = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": "container",
-  "height": 380,
+  "height": 410,
 
   "data": {
     "url": "data/arrivals_by_country.csv"
@@ -79,6 +79,10 @@ var arrivalsTimeline = {
       "filter": "datum.year >= 1991 && datum.year <= 2025 && isValid(datum.arrivals) && datum.country == 'Total (Country of stay/residence)'"
     },
     {
+      "calculate": "toNumber(datum.year)",
+      "as": "year_num"
+    },
+    {
       "aggregate": [
         {
           "op": "sum",
@@ -86,7 +90,7 @@ var arrivalsTimeline = {
           "as": "total_arrivals"
         }
       ],
-      "groupby": ["year"]
+      "groupby": ["year_num"]
     }
   ],
 
@@ -99,12 +103,16 @@ var arrivalsTimeline = {
       },
       "encoding": {
         "x": {
-          "field": "year",
-          "type": "ordinal",
+          "field": "year_num",
+          "type": "quantitative",
           "title": null,
+          "scale": {
+            "domain": [1991, 2025]
+          },
           "axis": {
-            "labelAngle": 0,
-            "labelOverlap": "greedy"
+            "format": "d",
+            "tickCount": 9,
+            "labelAngle": 0
           }
         },
         "y": {
@@ -117,9 +125,10 @@ var arrivalsTimeline = {
         },
         "tooltip": [
           {
-            "field": "year",
-            "type": "ordinal",
-            "title": "Year"
+            "field": "year_num",
+            "type": "quantitative",
+            "title": "Year",
+            "format": "d"
           },
           {
             "field": "total_arrivals",
@@ -141,8 +150,8 @@ var arrivalsTimeline = {
       },
       "encoding": {
         "x": {
-          "field": "year",
-          "type": "ordinal"
+          "field": "year_num",
+          "type": "quantitative"
         },
         "y": {
           "field": "total_arrivals",
@@ -150,9 +159,10 @@ var arrivalsTimeline = {
         },
         "tooltip": [
           {
-            "field": "year",
-            "type": "ordinal",
-            "title": "Year"
+            "field": "year_num",
+            "type": "quantitative",
+            "title": "Year",
+            "format": "d"
           },
           {
             "field": "total_arrivals",
@@ -161,6 +171,100 @@ var arrivalsTimeline = {
             "format": ","
           }
         ]
+      }
+    },
+
+    {
+      "data": {
+        "values": [
+          {
+            "year_num": 2019,
+            "total_arrivals": 9460600,
+            "label": "2019 peak before border closures"
+          },
+          {
+            "year_num": 2021,
+            "total_arrivals": 245340,
+            "label": "2021 low point"
+          },
+          {
+            "year_num": 2025,
+            "total_arrivals": 8937390,
+            "label": "2025 recovered to 94.4% of 2019"
+          }
+        ]
+      },
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 150,
+        "color": "#f97316",
+        "stroke": "white",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "x": {
+          "field": "year_num",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "total_arrivals",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "label",
+            "type": "nominal",
+            "title": "Annotation"
+          }
+        ]
+      }
+    },
+
+    {
+      "data": {
+        "values": [
+          {
+            "year_num": 2019,
+            "total_arrivals": 9460600,
+            "label": "2019 peak before border closures"
+          },
+          {
+            "year_num": 2021,
+            "total_arrivals": 245340,
+            "label": "2021 low point"
+          },
+          {
+            "year_num": 2025,
+            "total_arrivals": 8937390,
+            "label": "2025 recovered to 94.4% of 2019"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 10,
+        "dy": -14,
+        "font": "Inter",
+        "fontSize": 12,
+        "fontWeight": "700",
+        "color": "#172033"
+      },
+      "encoding": {
+        "x": {
+          "field": "year_num",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "total_arrivals",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label",
+          "type": "nominal"
+        }
       }
     }
   ],
@@ -181,7 +285,6 @@ var arrivalsTimeline = {
   }
 };
 
-vegaEmbed("#chart_arrivals_timeline", arrivalsTimeline, {"actions": false});
 vegaEmbed("#chart_arrivals_timeline", arrivalsTimeline, {"actions": false});
 var purposeArea = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
