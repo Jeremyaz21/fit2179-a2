@@ -1,0 +1,103 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 340,
+  "data": {
+    "url": "data/arrivals_by_purpose.csv"
+  },
+  "transform": [
+    {
+      "calculate": "toNumber(datum.year)",
+      "as": "year_num"
+    },
+    {
+      "filter": "(datum.year_num == 2000 || datum.year_num == 2010 || datum.year_num == 2019 || datum.year_num == 2025) && isValid(datum.arrivals) && datum.purpose != 'Total (Reason for Journey)'"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "sum",
+          "field": "arrivals",
+          "as": "total_arrivals"
+        }
+      ],
+      "groupby": [
+        "year_num",
+        "purpose"
+      ]
+    }
+  ],
+  "mark": {
+    "type": "bar"
+  },
+  "encoding": {
+    "x": {
+      "field": "year_num",
+      "type": "ordinal",
+      "title": null,
+      "axis": {
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "total_arrivals",
+      "type": "quantitative",
+      "title": "Share of arrivals",
+      "stack": "normalize",
+      "axis": {
+        "format": "%"
+      }
+    },
+    "color": {
+      "field": "purpose",
+      "type": "nominal",
+      "title": "Purpose",
+      "scale": {
+        "scheme": "tableau10"
+      },
+      "legend": {
+        "orient": "bottom",
+        "columns": 2,
+        "labelLimit": 150
+      }
+    },
+    "tooltip": [
+      {
+        "field": "year_num",
+        "type": "ordinal",
+        "title": "Year"
+      },
+      {
+        "field": "purpose",
+        "type": "nominal",
+        "title": "Purpose"
+      },
+      {
+        "field": "total_arrivals",
+        "type": "quantitative",
+        "title": "Arrivals",
+        "format": ","
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "Inter",
+      "titleFont": "Inter",
+      "labelColor": "#5f6f86",
+      "titleColor": "#172033",
+      "gridColor": "#e5edf5",
+      "domainColor": "#cbd5e1",
+      "tickColor": "#cbd5e1"
+    },
+    "legend": {
+      "labelFont": "Inter",
+      "titleFont": "Inter",
+      "labelColor": "#5f6f86",
+      "titleColor": "#172033"
+    }
+  }
+}

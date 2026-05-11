@@ -1,0 +1,112 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 380,
+  "data": {
+    "url": "data/arrivals_by_country.csv"
+  },
+  "transform": [
+    {
+      "filter": "datum.year >= 1991 && datum.year <= 2025 && isValid(datum.arrivals) && datum.country == 'Total (Country of stay/residence)'"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "sum",
+          "field": "arrivals",
+          "as": "total_arrivals"
+        }
+      ],
+      "groupby": [
+        "year"
+      ]
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "strokeWidth": 4,
+        "color": "#2563eb"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "title": null,
+          "axis": {
+            "labelAngle": 0,
+            "labelOverlap": "greedy"
+          }
+        },
+        "y": {
+          "field": "total_arrivals",
+          "type": "quantitative",
+          "title": "International visitor arrivals",
+          "axis": {
+            "format": "~s"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "year",
+            "type": "ordinal",
+            "title": "Year"
+          },
+          {
+            "field": "total_arrivals",
+            "type": "quantitative",
+            "title": "Arrivals",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 55,
+        "color": "#2563eb",
+        "opacity": 0.85
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "total_arrivals",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "year",
+            "type": "ordinal",
+            "title": "Year"
+          },
+          {
+            "field": "total_arrivals",
+            "type": "quantitative",
+            "title": "Arrivals",
+            "format": ","
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "Inter",
+      "titleFont": "Inter",
+      "labelColor": "#5f6f86",
+      "titleColor": "#172033",
+      "gridColor": "#e5edf5",
+      "domainColor": "#cbd5e1",
+      "tickColor": "#cbd5e1"
+    }
+  }
+}

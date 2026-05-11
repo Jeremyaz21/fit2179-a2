@@ -1,0 +1,138 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 340,
+  "data": {
+    "url": "data/arrivals_by_duration.csv"
+  },
+  "transform": [
+    {
+      "filter": "datum.year == 2025 && isValid(datum.arrivals) && datum.duration != 'Total (Duration of stay in days)'"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "sum",
+          "field": "arrivals",
+          "as": "total_arrivals"
+        }
+      ],
+      "groupby": [
+        "duration"
+      ]
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "sum",
+          "field": "total_arrivals",
+          "as": "all_arrivals"
+        }
+      ]
+    },
+    {
+      "calculate": "datum.total_arrivals / datum.all_arrivals",
+      "as": "share"
+    },
+    {
+      "calculate": "datum.duration == 'Under 1 week' ? 1 : datum.duration == '1 and under 2 weeks' ? 2 : datum.duration == '2 weeks and under 1 month' ? 3 : datum.duration == '1 and under 2 months' ? 4 : datum.duration == '2 and under 3 months' ? 5 : datum.duration == '3 and under 6 months' ? 6 : datum.duration == '6 and under 12 months' ? 7 : 8",
+      "as": "duration_order"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "cornerRadiusEnd": 8,
+        "height": 18,
+        "color": "#93c5fd"
+      },
+      "encoding": {
+        "y": {
+          "field": "duration",
+          "type": "nominal",
+          "sort": {
+            "field": "duration_order",
+            "order": "ascending"
+          },
+          "title": null,
+          "axis": {
+            "labelLimit": 170
+          }
+        },
+        "x": {
+          "field": "share",
+          "type": "quantitative",
+          "title": "Share of 2025 visitor arrivals",
+          "axis": {
+            "format": "%"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "duration",
+            "type": "nominal",
+            "title": "Length of stay"
+          },
+          {
+            "field": "total_arrivals",
+            "type": "quantitative",
+            "title": "Arrivals",
+            "format": ","
+          },
+          {
+            "field": "share",
+            "type": "quantitative",
+            "title": "Share",
+            "format": ".1%"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 6,
+        "font": "Inter",
+        "fontSize": 11,
+        "fontWeight": "700",
+        "color": "#172033"
+      },
+      "encoding": {
+        "y": {
+          "field": "duration",
+          "type": "nominal",
+          "sort": {
+            "field": "duration_order",
+            "order": "ascending"
+          }
+        },
+        "x": {
+          "field": "share",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "share",
+          "type": "quantitative",
+          "format": ".0%"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "Inter",
+      "titleFont": "Inter",
+      "labelColor": "#5f6f86",
+      "titleColor": "#172033",
+      "gridColor": "#e5edf5",
+      "domainColor": "#cbd5e1",
+      "tickColor": "#cbd5e1"
+    }
+  }
+}

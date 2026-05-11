@@ -1,0 +1,192 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 380,
+  "data": {
+    "url": "data/airport_recovery_2019_2024.csv"
+  },
+  "transform": [
+    {
+      "calculate": "datum.recovery_index * 100",
+      "as": "recovery_percent"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "strokeDash": [
+          5,
+          5
+        ],
+        "strokeWidth": 2,
+        "color": "#ef4444"
+      },
+      "encoding": {
+        "x": {
+          "datum": 100
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "bar",
+        "cornerRadiusEnd": 6,
+        "height": 14
+      },
+      "encoding": {
+        "y": {
+          "field": "airport",
+          "type": "nominal",
+          "sort": {
+            "field": "recovery_percent",
+            "order": "descending"
+          },
+          "title": null,
+          "axis": {
+            "labelLimit": 120
+          }
+        },
+        "x": {
+          "field": "recovery_percent",
+          "type": "quantitative",
+          "title": "2024 passengers as a percentage of 2019",
+          "axis": {
+            "format": ".0f"
+          },
+          "scale": {
+            "domain": [
+              0,
+              120
+            ]
+          }
+        },
+        "color": {
+          "condition": {
+            "test": "datum.recovery_percent >= 100",
+            "value": "#16a34a"
+          },
+          "value": "#2563eb"
+        },
+        "tooltip": [
+          {
+            "field": "airport",
+            "type": "nominal",
+            "title": "Airport"
+          },
+          {
+            "field": "passengers_2019",
+            "type": "quantitative",
+            "title": "2019 passengers",
+            "format": ","
+          },
+          {
+            "field": "passengers_2024",
+            "type": "quantitative",
+            "title": "2024 passengers",
+            "format": ","
+          },
+          {
+            "field": "recovery_percent",
+            "type": "quantitative",
+            "title": "Recovery index",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "filled": true,
+        "size": 120,
+        "color": "#172033",
+        "stroke": "white",
+        "strokeWidth": 1.4
+      },
+      "encoding": {
+        "y": {
+          "field": "airport",
+          "type": "nominal",
+          "sort": {
+            "field": "recovery_percent",
+            "order": "descending"
+          }
+        },
+        "x": {
+          "field": "recovery_percent",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 8,
+        "font": "Inter",
+        "fontSize": 11,
+        "fontWeight": "700",
+        "color": "#172033"
+      },
+      "encoding": {
+        "y": {
+          "field": "airport",
+          "type": "nominal",
+          "sort": {
+            "field": "recovery_percent",
+            "order": "descending"
+          }
+        },
+        "x": {
+          "field": "recovery_percent",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "recovery_percent",
+          "type": "quantitative",
+          "format": ".0f"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "bottom",
+        "dx": 5,
+        "dy": -8,
+        "font": "Inter",
+        "fontSize": 11,
+        "fontWeight": "700",
+        "color": "#ef4444"
+      },
+      "encoding": {
+        "x": {
+          "datum": 100
+        },
+        "y": {
+          "datum": "ADELAIDE"
+        },
+        "text": {
+          "value": "2019 level"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "Inter",
+      "titleFont": "Inter",
+      "labelColor": "#5f6f86",
+      "titleColor": "#172033",
+      "gridColor": "#e5edf5",
+      "domainColor": "#cbd5e1",
+      "tickColor": "#cbd5e1"
+    }
+  }
+}

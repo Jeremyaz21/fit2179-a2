@@ -7,48 +7,251 @@
 
   <title>Australia's Tourism Comeback</title>
 
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Vega-Lite libraries -->
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 
+  <!-- CSS -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+
   <main>
 
+    <!-- HERO -->
     <section class="hero">
-      <p class="tag">FIT2179 Data Visualisation 2</p>
-      <h1>Australia's Tourism Comeback</h1>
-      <p class="subtitle">
-        Where visitors are coming from, why they are travelling, and which airports are carrying the recovery.
-      </p>
+      <div class="hero-text">
+        <p class="tag">FIT2179 Data Visualisation 2</p>
+        <h1>Australia's Tourism Comeback</h1>
+        <p class="subtitle">
+          Where visitors are coming from, why they are travelling, and which airports are carrying the recovery.
+        </p>
+        <p class="hero-note">
+          This visualisation explores how international arrivals, visitor purpose, source countries,
+          seasonality and airport traffic have changed across three decades of Australian travel.
+        </p>
+      </div>
     </section>
 
-    <section class="section-card">
-      <h2>1. International visitors are returning</h2>
-      <p>
-        This opening chart will show the recovery of international visitor arrivals into Australia over time.
-      </p>
+    <!-- KPI CARDS -->
+    <section class="kpi-grid">
+        <div class="kpi-card">
+            <p class="kpi-label">Latest annual arrivals</p>
+            <h2>8.94M</h2>
+            <p class="kpi-caption">International visitor arrivals in 2025</p>
+        </div>
 
-      <div id="arrivals_line" class="vis-container"></div>
+        <div class="kpi-card">
+            <p class="kpi-label">Recovery vs 2019</p>
+            <h2>94.4%</h2>
+            <p class="kpi-caption">2025 arrivals compared with pre-pandemic 2019</p>
+        </div>
+
+        <div class="kpi-card">
+            <p class="kpi-label">Top source country</p>
+            <h2>New Zealand</h2>
+            <p class="kpi-caption">1.44M visitor arrivals in 2025</p>
+        </div>
+
+        <div class="kpi-card">
+            <p class="kpi-label">Busiest airport</p>
+            <h2>Sydney</h2>
+            <p class="kpi-caption">41.5M passengers in 2024</p>
+        </div>
+        </section>
+
+    <!-- SECTION 1 -->
+    <section class="story-section">
+      <div class="section-heading">
+        <p class="section-number">Section 1</p>
+        <h2>Australia’s Open Door</h2>
+        <p>
+          Australia’s visitor economy has grown over the long term, but the timeline also shows how global shocks
+          interrupted travel before the sector began recovering.
+        </p>
+      </div>
+
+      <div class="chart-card full-width">
+        <div class="chart-text">
+          <<h3>Total international arrivals, 1991–2025</h3>
+          <p>An annual timeline shows long-term growth, COVID-era disruption and the recovery of international arrivals after borders reopened.</p>
+        </div>
+        <div id="chart_arrivals_timeline" class="vis-container"></div>
+      </div>
+
+      <div class="chart-card full-width">
+        <div class="chart-text">
+          <h3>Purpose of visit over time</h3>
+          <p>A stacked area chart shows how the mix of holiday, business, education and family travel has shifted over time.</p>
+        </div>
+        <div id="chart_purpose_area" class="vis-container"></div>
+      </div>
     </section>
 
-    <section class="section-card">
-      <h2>About this visualisation</h2>
-      <p>
-        This page uses Australian Bureau of Statistics visitor arrival data and BITRE airport traffic data
-        to explain Australia's tourism recovery.
-      </p>
+    <!-- SECTION 2 -->
+    <section class="story-section tinted">
+      <div class="section-heading">
+        <p class="section-number">Section 2</p>
+        <h2>Who Comes to Australia?</h2>
+        <p>
+          Source countries reveal the changing shape of Australian tourism and the growing importance of nearby
+          Asia-Pacific visitor markets.
+        </p>
+      </div>
+
+      <div class="chart-card full-width">
+        <div class="chart-text">
+          <h3>World map of source countries</h3>
+          <p>A choropleth map shows which countries send the most visitors to Australia, with darker shading representing higher arrivals in 2025.</p>
+        </div>
+        <div id="chart_world_map" class="vis-container"></div>
+      </div>
+
+      <div class="two-column-grid">
+        <div class="chart-card">
+          <div class="chart-text">
+            <h3>Top 10 source countries</h3>
+            <p>A lollipop chart ranks Australia’s largest visitor markets in 2025, showing New Zealand and China as the two biggest sources.</p>
+          </div>
+          <div id="chart_top_countries" class="vis-container"></div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-text">
+            <h3>The rise of Asia</h3>
+            <p>A slope chart compares regional visitor shares between 2000 and 2025, showing Asia’s growing share of Australia’s visitor market.</p>
+          </div>
+          <div id="chart_rise_asia" class="vis-container"></div>
+        </div>
+      </div>
     </section>
 
+    <!-- SECTION 3 -->
+    <section class="story-section">
+      <div class="section-heading">
+        <p class="section-number">Section 3</p>
+        <h2>Why Do They Come?</h2>
+        <p>
+          Visitor purpose and length of stay help explain whether Australia is attracting short holiday trips,
+          family visits, students, business travellers or longer stays.
+        </p>
+      </div>
+
+      <div class="two-column-grid">
+        <div class="chart-card">
+          <div class="chart-text">
+            <h3>Main reason for journey</h3>
+            <p>A 100% stacked bar chart compares visitor purpose across selected years, making it easier to see how the mix of holiday, business, education and family travel has changed.</p>
+          </div>
+          <div id="chart_reason_stacked" class="vis-container"></div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-text">
+            <h3>How long visitors stay</h3>
+            <p>A duration distribution shows whether visitors in 2025 are mostly short-stay or long-stay travellers.</p>
+          </div>
+          <div id="chart_duration_distribution" class="vis-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4 -->
+    <section class="story-section tinted">
+      <div class="section-heading">
+        <p class="section-number">Section 4</p>
+        <h2>Where Does the Recovery Land?</h2>
+        <p>
+          Airport traffic is used as a supporting indicator of where travel activity is concentrated across Australia.
+        </p>
+      </div>
+
+      <div class="chart-card full-width">
+        <div class="chart-text">
+          <h3>Passenger volume by Australian airport</h3>
+          <p>A bubble map uses circle size to show total passengers in 2024 and colour to show each airport’s international passenger share.</p>
+        </div>
+        <div id="chart_airport_map" class="vis-container"></div>
+      </div>
+
+      <div class="two-column-grid">
+        <div class="chart-card">
+          <div class="chart-text">
+            <h3>Domestic vs international mix</h3>
+            <p>A proportional stacked bar shows which airports are mostly domestic and which have a stronger international passenger role in 2024.</p>
+          </div>
+          <div id="chart_airport_mix" class="vis-container"></div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-text">
+            <h3>Airport recovery comparison</h3>
+            <p>A recovery index compares 2024 passenger traffic against 2019 levels, where 100% means an airport has returned to its pre-pandemic passenger volume.</p>
+          </div>
+          <div id="chart_airport_recovery" class="vis-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5 -->
+    <section class="story-section">
+      <div class="section-heading">
+        <p class="section-number">Section 5</p>
+        <h2>Recovery Patterns and Seasonality</h2>
+        <p>
+          Monthly patterns show that tourism recovery is not only about total volume, but also timing,
+          seasonality and different airport trajectories.
+        </p>
+      </div>
+
+      <div class="chart-card full-width">
+        <div class="chart-text">
+          <h3>Seasonality heatmap</h3>
+          <p>A month-by-year heatmap shows normal tourism seasonality, the COVID-era interruption and the return of visitor arrivals after borders reopened.</p>
+        </div>
+        <div id="chart_seasonality" class="vis-container"></div>
+      </div>
+
+      <div class="chart-card full-width">
+        <div class="chart-text">
+          <h3>Top airport passenger trends</h3>
+          <p>A multi-line chart compares monthly traffic trends for five major airports, showing the drop during border closures and the uneven recovery after travel resumed.</p>
+        </div>
+        <div id="chart_airport_trends" class="vis-container"></div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
     <footer>
-      <p>
-        Author: Jeremy Azoulay | Date: 2026 | Data sources: ABS and BITRE.
-      </p>
-      <p>
-        Generative AI tools were used to assist with planning, wording, debugging, and code structure.
-      </p>
+      <div>
+        <h3>Data sources</h3>
+        <p>
+          Australian Bureau of Statistics, Overseas Arrivals and Departures, Australia.
+          Bureau of Infrastructure and Transport Research Economics, Monthly Airport Traffic Data.
+        </p>
+      </div>
+
+      <div>
+        <h3>Authorship</h3>
+        <p>
+          Created by Jeremy Azoulay for FIT2179 Data Visualisation 2, Semester 1, 2026.
+        </p>
+      </div>
+
+      <div>
+        <h3>AI acknowledgement</h3>
+        <p>
+          Generative AI tools were used to assist with planning, wording, debugging and code structure.
+          Final design decisions, data interpretation and implementation were reviewed and edited by the author.
+        </p>
+      </div>
     </footer>
 
   </main>

@@ -1,0 +1,100 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 390,
+  "data": {
+    "url": "data/airport_traffic.csv"
+  },
+  "transform": [
+    {
+      "filter": "isValid(datum.total_passengers) && datum.year >= 2015 && datum.year <= 2025"
+    },
+    {
+      "filter": "datum.airport == 'SYDNEY' || datum.airport == 'MELBOURNE' || datum.airport == 'BRISBANE' || datum.airport == 'PERTH' || datum.airport == 'ADELAIDE'"
+    },
+    {
+      "calculate": "toDate(datum.date)",
+      "as": "date_parsed"
+    }
+  ],
+  "mark": {
+    "type": "line",
+    "strokeWidth": 2.5
+  },
+  "encoding": {
+    "x": {
+      "field": "date_parsed",
+      "type": "temporal",
+      "title": null,
+      "axis": {
+        "format": "%Y",
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "total_passengers",
+      "type": "quantitative",
+      "title": "Monthly passengers",
+      "axis": {
+        "format": "~s"
+      }
+    },
+    "color": {
+      "field": "airport",
+      "type": "nominal",
+      "title": "Airport",
+      "scale": {
+        "range": [
+          "#2563eb",
+          "#16a34a",
+          "#f97316",
+          "#7c3aed",
+          "#64748b"
+        ]
+      },
+      "legend": {
+        "orient": "bottom",
+        "columns": 5
+      }
+    },
+    "tooltip": [
+      {
+        "field": "airport",
+        "type": "nominal",
+        "title": "Airport"
+      },
+      {
+        "field": "date_parsed",
+        "type": "temporal",
+        "title": "Month",
+        "format": "%b %Y"
+      },
+      {
+        "field": "total_passengers",
+        "type": "quantitative",
+        "title": "Passengers",
+        "format": ","
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "Inter",
+      "titleFont": "Inter",
+      "labelColor": "#5f6f86",
+      "titleColor": "#172033",
+      "gridColor": "#e5edf5",
+      "domainColor": "#cbd5e1",
+      "tickColor": "#cbd5e1"
+    },
+    "legend": {
+      "labelFont": "Inter",
+      "titleFont": "Inter",
+      "labelColor": "#5f6f86",
+      "titleColor": "#172033"
+    }
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 380,
+  "data": {
+    "url": "data/airport_traffic.csv"
+  },
+  "transform": [
+    {
+      "filter": "datum.year == 2024 && isValid(datum.dom_total) && isValid(datum.intl_total)"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "sum",
+          "field": "dom_total",
+          "as": "Domestic"
+        },
+        {
+          "op": "sum",
+          "field": "intl_total",
+          "as": "International"
+        }
+      ],
+      "groupby": [
+        "airport"
+      ]
+    },
+    {
+      "calculate": "datum.Domestic + datum.International",
+      "as": "total_passengers"
+    },
+    {
+      "calculate": "datum.International / datum.total_passengers",
+      "as": "international_share"
+    },
+    {
+      "fold": [
+        "Domestic",
+        "International"
+      ],
+      "as": [
+        "passenger_type",
+        "passengers"
+      ]
+    }
+  ],
+  "mark": {
+    "type": "bar"
+  },
+  "encoding": {
+    "y": {
+      "field": "airport",
+      "type": "nominal",
+      "title": null,
+      "sort": {
+        "field": "international_share",
+        "order": "descending"
+      },
+      "axis": {
+        "labelLimit": 120
+      }
+    },
+    "x": {
+      "field": "passengers",
+      "type": "quantitative",
+      "title": "Share of passengers",
+      "stack": "normalize",
+      "axis": {
+        "format": "%"
+      }
+    },
+    "color": {
+      "field": "passenger_type",
+      "type": "nominal",
+      "title": "Passenger type",
+      "scale": {
+        "range": [
+          "#93c5fd",
+          "#1e3a8a"
+        ]
+      },
+      "legend": {
+        "orient": "bottom"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "airport",
+        "type": "nominal",
+        "title": "Airport"
+      },
+      {
+        "field": "passenger_type",
+        "type": "nominal",
+        "title": "Type"
+      },
+      {
+        "field": "passengers",
+        "type": "quantitative",
+        "title": "Passengers",
+        "format": ","
+      },
+      {
+        "field": "international_share",
+        "type": "quantitative",
+        "title": "International share",
+        "format": ".1%"
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "Inter",
+      "titleFont": "Inter",
+      "labelColor": "#5f6f86",
+      "titleColor": "#172033",
+      "gridColor": "#e5edf5",
+      "domainColor": "#cbd5e1",
+      "tickColor": "#cbd5e1"
+    },
+    "legend": {
+      "labelFont": "Inter",
+      "titleFont": "Inter",
+      "labelColor": "#5f6f86",
+      "titleColor": "#172033"
+    }
+  }
+}

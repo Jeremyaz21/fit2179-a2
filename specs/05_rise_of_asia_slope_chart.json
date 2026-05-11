@@ -1,0 +1,196 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 360,
+  "data": {
+    "url": "data/region_source_share_2000_2025.csv"
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "strokeWidth": 3,
+        "point": false
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "title": null,
+          "axis": {
+            "labelAngle": 0
+          }
+        },
+        "y": {
+          "field": "share",
+          "type": "quantitative",
+          "title": "Share of visitor arrivals",
+          "axis": {
+            "format": "%"
+          }
+        },
+        "color": {
+          "field": "region",
+          "type": "nominal",
+          "title": "Region",
+          "scale": {
+            "range": [
+              "#2563eb",
+              "#16a34a",
+              "#f97316",
+              "#7c3aed",
+              "#64748b"
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "columns": 2
+          }
+        },
+        "detail": {
+          "field": "region",
+          "type": "nominal"
+        },
+        "tooltip": [
+          {
+            "field": "region",
+            "type": "nominal",
+            "title": "Region"
+          },
+          {
+            "field": "year",
+            "type": "ordinal",
+            "title": "Year"
+          },
+          {
+            "field": "share",
+            "type": "quantitative",
+            "title": "Share",
+            "format": ".1%"
+          },
+          {
+            "field": "region_arrivals",
+            "type": "quantitative",
+            "title": "Arrivals",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "filled": true,
+        "size": 130,
+        "stroke": "white",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "share",
+          "type": "quantitative"
+        },
+        "color": {
+          "field": "region",
+          "type": "nominal",
+          "scale": {
+            "range": [
+              "#2563eb",
+              "#16a34a",
+              "#f97316",
+              "#7c3aed",
+              "#64748b"
+            ]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "region",
+            "type": "nominal",
+            "title": "Region"
+          },
+          {
+            "field": "year",
+            "type": "ordinal",
+            "title": "Year"
+          },
+          {
+            "field": "share",
+            "type": "quantitative",
+            "title": "Share",
+            "format": ".1%"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year == 2025"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 10,
+        "font": "Inter",
+        "fontSize": 12,
+        "fontWeight": "700"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "share",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "region",
+          "type": "nominal"
+        },
+        "color": {
+          "field": "region",
+          "type": "nominal",
+          "scale": {
+            "range": [
+              "#2563eb",
+              "#16a34a",
+              "#f97316",
+              "#7c3aed",
+              "#64748b"
+            ]
+          },
+          "legend": null
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "Inter",
+      "titleFont": "Inter",
+      "labelColor": "#5f6f86",
+      "titleColor": "#172033",
+      "gridColor": "#e5edf5",
+      "domainColor": "#cbd5e1",
+      "tickColor": "#cbd5e1"
+    },
+    "legend": {
+      "labelFont": "Inter",
+      "titleFont": "Inter",
+      "labelColor": "#5f6f86",
+      "titleColor": "#172033"
+    }
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 470,
+  "layer": [
+    {
+      "data": {
+        "url": "https://vega.github.io/vega-datasets/data/world-110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      "transform": [
+        {
+          "filter": "datum.id == 36"
+        }
+      ],
+      "projection": {
+        "type": "mercator"
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e5edf5",
+        "stroke": "#ffffff",
+        "strokeWidth": 1
+      }
+    },
+    {
+      "data": {
+        "url": "data/airport_traffic.csv"
+      },
+      "transform": [
+        {
+          "filter": "datum.year == 2024 && isValid(datum.total_passengers) && isValid(datum.latitude) && isValid(datum.longitude)"
+        },
+        {
+          "aggregate": [
+            {
+              "op": "sum",
+              "field": "total_passengers",
+              "as": "passengers"
+            },
+            {
+              "op": "sum",
+              "field": "intl_total",
+              "as": "international_passengers"
+            },
+            {
+              "op": "sum",
+              "field": "dom_total",
+              "as": "domestic_passengers"
+            },
+            {
+              "op": "mean",
+              "field": "latitude",
+              "as": "lat"
+            },
+            {
+              "op": "mean",
+              "field": "longitude",
+              "as": "lon"
+            }
+          ],
+          "groupby": [
+            "airport"
+          ]
+        },
+        {
+          "calculate": "datum.international_passengers / datum.passengers",
+          "as": "international_share"
+        }
+      ],
+      "projection": {
+        "type": "mercator"
+      },
+      "mark": {
+        "type": "circle",
+        "opacity": 0.82,
+        "stroke": "white",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "size": {
+          "field": "passengers",
+          "type": "quantitative",
+          "title": "Total passengers, 2024",
+          "scale": {
+            "range": [
+              80,
+              3600
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "format": "~s"
+          }
+        },
+        "color": {
+          "field": "international_share",
+          "type": "quantitative",
+          "title": "International share",
+          "scale": {
+            "scheme": "tealblues"
+          },
+          "legend": {
+            "orient": "bottom",
+            "format": "%"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "airport",
+            "type": "nominal",
+            "title": "Airport"
+          },
+          {
+            "field": "passengers",
+            "type": "quantitative",
+            "title": "Total passengers, 2024",
+            "format": ","
+          },
+          {
+            "field": "domestic_passengers",
+            "type": "quantitative",
+            "title": "Domestic passengers",
+            "format": ","
+          },
+          {
+            "field": "international_passengers",
+            "type": "quantitative",
+            "title": "International passengers",
+            "format": ","
+          },
+          {
+            "field": "international_share",
+            "type": "quantitative",
+            "title": "International share",
+            "format": ".1%"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "legend": {
+      "labelFont": "Inter",
+      "titleFont": "Inter",
+      "labelColor": "#5f6f86",
+      "titleColor": "#172033"
+    }
+  }
+}

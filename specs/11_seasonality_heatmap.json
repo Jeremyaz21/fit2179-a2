@@ -1,0 +1,114 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 360,
+  "data": {
+    "url": "data/arrivals_by_country.csv"
+  },
+  "transform": [
+    {
+      "filter": "datum.year >= 1991 && datum.year <= 2025 && isValid(datum.arrivals) && datum.country == 'Total (Country of stay/residence)'"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "sum",
+          "field": "arrivals",
+          "as": "total_arrivals"
+        }
+      ],
+      "groupby": [
+        "year",
+        "month"
+      ]
+    },
+    {
+      "calculate": "datum.month == 1 ? 'Jan' : datum.month == 2 ? 'Feb' : datum.month == 3 ? 'Mar' : datum.month == 4 ? 'Apr' : datum.month == 5 ? 'May' : datum.month == 6 ? 'Jun' : datum.month == 7 ? 'Jul' : datum.month == 8 ? 'Aug' : datum.month == 9 ? 'Sep' : datum.month == 10 ? 'Oct' : datum.month == 11 ? 'Nov' : 'Dec'",
+      "as": "month_name"
+    }
+  ],
+  "mark": {
+    "type": "rect",
+    "cornerRadius": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": "Year",
+      "axis": {
+        "labelAngle": 0,
+        "labelOverlap": "greedy"
+      }
+    },
+    "y": {
+      "field": "month_name",
+      "type": "ordinal",
+      "title": null,
+      "sort": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+      ]
+    },
+    "color": {
+      "field": "total_arrivals",
+      "type": "quantitative",
+      "title": "Monthly arrivals",
+      "scale": {
+        "scheme": "blues"
+      },
+      "legend": {
+        "orient": "bottom",
+        "format": "~s"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "month_name",
+        "type": "nominal",
+        "title": "Month"
+      },
+      {
+        "field": "year",
+        "type": "ordinal",
+        "title": "Year"
+      },
+      {
+        "field": "total_arrivals",
+        "type": "quantitative",
+        "title": "Arrivals",
+        "format": ","
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "Inter",
+      "titleFont": "Inter",
+      "labelColor": "#5f6f86",
+      "titleColor": "#172033",
+      "grid": false,
+      "domain": false,
+      "ticks": false
+    },
+    "legend": {
+      "labelFont": "Inter",
+      "titleFont": "Inter",
+      "labelColor": "#5f6f86",
+      "titleColor": "#172033"
+    }
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 380,
+  "data": {
+    "url": "data/arrivals_by_purpose.csv"
+  },
+  "transform": [
+    {
+      "filter": "datum.year >= 1991 && datum.year <= 2025 && isValid(datum.arrivals) && datum.purpose != 'Total (Reason for Journey)'"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "sum",
+          "field": "arrivals",
+          "as": "total_arrivals"
+        }
+      ],
+      "groupby": [
+        "year",
+        "purpose"
+      ]
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "sum",
+          "field": "total_arrivals",
+          "as": "year_total"
+        }
+      ],
+      "groupby": [
+        "year"
+      ]
+    },
+    {
+      "calculate": "datum.total_arrivals / datum.year_total",
+      "as": "share"
+    }
+  ],
+  "mark": {
+    "type": "area",
+    "line": {
+      "color": "white",
+      "strokeWidth": 0.6
+    }
+  },
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": null,
+      "axis": {
+        "labelAngle": 0,
+        "labelOverlap": "greedy"
+      }
+    },
+    "y": {
+      "field": "share",
+      "type": "quantitative",
+      "title": "Share of arrivals",
+      "axis": {
+        "format": "%"
+      },
+      "stack": "normalize"
+    },
+    "color": {
+      "field": "purpose",
+      "type": "nominal",
+      "title": "Purpose of visit",
+      "scale": {
+        "scheme": "tableau10"
+      },
+      "legend": {
+        "orient": "bottom",
+        "columns": 3,
+        "labelLimit": 180
+      }
+    },
+    "tooltip": [
+      {
+        "field": "year",
+        "type": "ordinal",
+        "title": "Year"
+      },
+      {
+        "field": "purpose",
+        "type": "nominal",
+        "title": "Purpose"
+      },
+      {
+        "field": "total_arrivals",
+        "type": "quantitative",
+        "title": "Arrivals",
+        "format": ","
+      },
+      {
+        "field": "share",
+        "type": "quantitative",
+        "title": "Share",
+        "format": ".1%"
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "Inter",
+      "titleFont": "Inter",
+      "labelColor": "#5f6f86",
+      "titleColor": "#172033",
+      "gridColor": "#e5edf5",
+      "domainColor": "#cbd5e1",
+      "tickColor": "#cbd5e1"
+    },
+    "legend": {
+      "labelFont": "Inter",
+      "titleFont": "Inter",
+      "labelColor": "#5f6f86",
+      "titleColor": "#172033"
+    }
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 360,
+  "data": {
+    "url": "data/top10_source_countries_2025.csv"
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "cornerRadiusEnd": 5,
+        "color": "#d7e6f5",
+        "height": 10
+      },
+      "encoding": {
+        "y": {
+          "field": "country",
+          "type": "nominal",
+          "sort": {
+            "field": "total_arrivals",
+            "order": "descending"
+          },
+          "title": null,
+          "axis": {
+            "labelLimit": 150
+          }
+        },
+        "x": {
+          "field": "total_arrivals",
+          "type": "quantitative",
+          "title": "Visitor arrivals in 2025",
+          "axis": {
+            "format": "~s"
+          }
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "filled": true,
+        "size": 150,
+        "color": "#2563eb",
+        "stroke": "white",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "y": {
+          "field": "country",
+          "type": "nominal",
+          "sort": {
+            "field": "total_arrivals",
+            "order": "descending"
+          },
+          "title": null
+        },
+        "x": {
+          "field": "total_arrivals",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "rank",
+            "type": "quantitative",
+            "title": "Rank"
+          },
+          {
+            "field": "country",
+            "type": "nominal",
+            "title": "Country"
+          },
+          {
+            "field": "total_arrivals",
+            "type": "quantitative",
+            "title": "Arrivals in 2025",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 8,
+        "font": "Inter",
+        "fontSize": 11,
+        "fontWeight": "600",
+        "color": "#334155"
+      },
+      "encoding": {
+        "y": {
+          "field": "country",
+          "type": "nominal",
+          "sort": {
+            "field": "total_arrivals",
+            "order": "descending"
+          }
+        },
+        "x": {
+          "field": "total_arrivals",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "total_arrivals",
+          "type": "quantitative",
+          "format": "~s"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "Inter",
+      "titleFont": "Inter",
+      "labelColor": "#5f6f86",
+      "titleColor": "#172033",
+      "gridColor": "#e5edf5",
+      "domainColor": "#cbd5e1",
+      "tickColor": "#cbd5e1"
+    }
+  }
+}
