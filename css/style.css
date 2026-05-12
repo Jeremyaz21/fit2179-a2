@@ -213,6 +213,7 @@ h1 {
   color: #64748b;
 }
 
+
 /* FOOTER */
 
 footer {
@@ -279,4 +280,35 @@ footer p {
   .chart-card {
     padding: 22px;
   }
+}
+
+
+.map-note-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  margin-top: 12px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.legend-box {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 4px;
+  margin-right: 7px;
+  vertical-align: -2px;
+  border: 1px solid rgba(23, 32, 51, 0.18);
+}
+
+.legend-box.reported {
+  background: #3182bd;
+}
+
+.legend-box.no-data {
+  background: #e9c371;
 }

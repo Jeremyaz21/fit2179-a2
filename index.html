@@ -73,27 +73,28 @@
         <p class="section-number">Section 1</p>
         <h2>Australia’s Open Door</h2>
         <p>
-          Australia’s visitor economy has grown over the long term, but the timeline also shows how global shocks
-          interrupted travel before the sector began recovering.
+          Australia’s visitor economy grew strongly before the border-closure period disrupted decades of travel growth.
+          The recovery is now visible, but visitor numbers and travel purpose have not returned in exactly the same shape.
         </p>
       </div>
 
       <div class="chart-card full-width">
         <div class="chart-text">
           <h3>Total international arrivals, 1991–2025</h3>
-          <p>An annual timeline shows long-term growth, COVID-era disruption and the recovery of international arrivals after borders reopened.</p>
+          <p>An annual timeline shows long-term growth, COVID-era disruption and the recovery of international arrivals after borders reopened. Orange annotations mark the 2019 peak, the 2021 low point and the 2025 recovery level.</p>
         </div>
         <div id="chart_arrivals_timeline" class="vis-container"></div>
-        <p class="source-note">Source: Australian Bureau of Statistics, Overseas Arrivals and Departures, Australia.</p>
+        <p class="source-note">Source: Australian Bureau of Statistics, Overseas Arrivals and Departures, Australia. Percentages during 2020–2021 should be read carefully because total arrivals were unusually low during border restrictions.</p>
       </div>
 
       <div class="chart-card full-width">
         <div class="chart-text">
           <h3>Purpose of visit over time</h3>
-          <p>A stacked area chart shows how the mix of holiday, business, education and family travel has shifted over time.</p>
+          <p>A stacked area chart shows how the visitor-purpose mix has shifted over time. The 2020–2021 spike should be read carefully because total arrivals were extremely low during border restrictions, making percentage shares more volatile.</p>
+        
         </div>
         <div id="chart_purpose_area" class="vis-container"></div>
-        <p class="source-note">Source: Australian Bureau of Statistics, Overseas Arrivals and Departures, Australia.</p>
+        <p class="source-note">Source: Australian Bureau of Statistics, Overseas Arrivals and Departures, Australia. Note: the 2020–2021 spike should be read carefully because total arrivals were extremely low during border restrictions, making percentage shares more volatile.</p>
       </div>
     </section>
 
@@ -103,35 +104,36 @@
         <p class="section-number">Section 2</p>
         <h2>Who Comes to Australia?</h2>
         <p>
-          Source countries reveal the changing shape of Australian tourism and the growing importance of nearby
-          Asia-Pacific visitor markets.
+          Australia’s visitor recovery is strongly shaped by nearby Asia-Pacific markets. The map and ranking show where visitors come from, while the regional comparison shows how the source-market mix has shifted since 2000.
         </p>
       </div>
 
       <div class="chart-card full-width">
         <div class="chart-text">
           <h3>World map of source countries</h3>
-          <p>A choropleth map shows which countries send the most visitors to Australia, with darker shading representing higher arrivals in 2025.</p>
-        </div>
+          <p>A choropleth map shows selected source countries reported by ABS. Darker blue countries sent more visitors to Australia in 2025, while beige countries are not reported individually in the selected ABS source-country dataset.</p>        </div>
         <div id="chart_world_map" class="vis-container"></div>
-        <p class="source-note">Source: Australian Bureau of Statistics, Overseas Arrivals and Departures, Australia.</p>
+        <div class="map-note-legend">
+          <span><span class="legend-box reported"></span>Reported source country</span>
+          <span><span class="legend-box no-data"></span>Not individually reported by ABS</span>
+        </div>
+        <p class="source-note">Source: Australian Bureau of Statistics, Overseas Arrivals and Departures, Australia. Countries shown in beige are not reported individually in the selected source-country dataset.</p>
       </div>
 
       <div class="two-column-grid">
         <div class="chart-card">
           <div class="chart-text">
             <h3>Top 10 source countries</h3>
-            <p>A lollipop chart ranks Australia’s largest visitor markets in 2025, showing New Zealand and China as the two biggest sources.</p>
+            <p>A lollipop chart ranks Australia’s largest visitor markets. Use the year selector to compare how source-country rankings changed between the pre-pandemic peak, border-closure period and recovery years.</p>
           </div>
           <div id="chart_top_countries" class="vis-container"></div>
-          <p class="source-note">Source: Australian Bureau of Statistics, Overseas Arrivals and Departures, Australia.</p>
+          <p class="source-note">Source: Australian Bureau of Statistics, Overseas Arrivals and Departures, Australia. Countries shown in grey are not reported individually in the selected source-country dataset.</p>
         </div>
 
         <div class="chart-card">
           <div class="chart-text">
             <h3>The rise of Asia</h3>
-            <p>A slope chart compares regional visitor shares between 2000 and 2025, showing Asia’s growing share of Australia’s visitor market.</p>
-          </div>
+          <p>A slope chart compares regional visitor shares between 2000 and 2025. Asia rises from about 46% to 53%, showing the growing importance of nearby Asian visitor markets.</p>          </div>
           <div id="chart_rise_asia" class="vis-container"></div>
           <p class="source-note">Source: Australian Bureau of Statistics, Overseas Arrivals and Departures, Australia. Regional groupings were derived from source-country data.</p>
         </div>
@@ -144,8 +146,7 @@
         <p class="section-number">Section 3</p>
         <h2>Why Do They Come?</h2>
         <p>
-          Visitor purpose and length of stay help explain whether Australia is attracting short holiday trips,
-          family visits, students, business travellers or longer stays.
+          Visitor numbers only show part of the recovery. Purpose of travel and length of stay reveal whether Australia is attracting short holidays, family visits, education travel, business trips or longer-stay visitors.
         </p>
       </div>
 
@@ -153,7 +154,7 @@
         <div class="chart-card">
           <div class="chart-text">
             <h3>Main reason for journey</h3>
-            <p>A 100% stacked bar chart compares visitor purpose across selected years, making it easier to see how the mix of holiday, business, education and family travel has changed.</p>
+            <p>A 100% stacked bar chart compares selected years to show how the visitor-purpose mix changed before and after the border-closure period. Because each bar adds to 100%, the focus is on proportion rather than total visitor volume.</p>
           </div>
           <div id="chart_reason_stacked" class="vis-container"></div>
           <p class="source-note">Source: Australian Bureau of Statistics, Overseas Arrivals and Departures, Australia.</p>
@@ -162,7 +163,7 @@
         <div class="chart-card">
           <div class="chart-text">
             <h3>How long visitors stay</h3>
-            <p>A duration distribution shows whether visitors in 2025 are mostly short-stay or long-stay travellers.</p>
+            <p>A duration distribution shows whether visitors in 2025 are mostly short-stay or long-stay travellers. The horizontal ordering moves from shorter to longer stays, making the stay-length pattern easier to compare.</p>
           </div>
           <div id="chart_duration_distribution" class="vis-container"></div>
           <p class="source-note">Source: Australian Bureau of Statistics, Overseas Arrivals and Departures, Australia.</p>
@@ -176,15 +177,14 @@
         <p class="section-number">Section 4</p>
         <h2>Where Does the Recovery Land?</h2>
         <p>
-          Airport traffic is used as a supporting indicator of where travel activity is concentrated across Australia.
+          Airport traffic shows where travel activity is concentrated across Australia. The map highlights passenger volume and international exposure, while the recovery index compares how close major airports are to their 2019 levels.
         </p>
       </div>
 
       <div class="chart-card full-width">
         <div class="chart-text">
           <h3>Passenger volume by Australian airport</h3>
-          <p>A bubble map uses circle size to show total passengers in 2024 and colour to show each airport’s international passenger share.</p>
-        </div>
+          <p>A bubble map uses circle size to show total passengers in 2024 and colour intensity to show each airport’s international passenger share. This separates airport scale from airport role.</p>        </div>
         <div id="chart_airport_map" class="vis-container"></div>
         <p class="source-note">Source: BITRE Monthly Airport Traffic Data. Airport traffic is used as a supporting indicator of travel activity.</p>
       </div>
@@ -202,7 +202,7 @@
         <div class="chart-card">
           <div class="chart-text">
             <h3>Airport recovery comparison</h3>
-            <p>A recovery index compares 2024 passenger traffic against 2019 levels, where 100% means an airport has returned to its pre-pandemic passenger volume.</p>
+            <p>A recovery index compares 2024 passenger traffic against 2019 levels. The dashed 100% line is the pre-pandemic benchmark: airports to the right have exceeded their 2019 passenger volume, while airports to the left are still below it.</p>
           </div>
           <div id="chart_airport_recovery" class="vis-container"></div>
           <p class="source-note">Source: BITRE Monthly Airport Traffic Data. Recovery index is calculated as 2024 passengers divided by 2019 passengers.</p>
@@ -216,15 +216,14 @@
         <p class="section-number">Section 5</p>
         <h2>Recovery Patterns and Seasonality</h2>
         <p>
-          Monthly patterns show that tourism recovery is not only about total volume, but also timing,
-          seasonality and different airport trajectories.
+          Recovery is not only about annual totals. Monthly patterns reveal when visitors return, how seasonal peaks reappear, and how major airports recovered along different paths after travel restrictions eased.
         </p>
       </div>
 
       <div class="chart-card full-width">
         <div class="chart-text">
           <h3>Seasonality heatmap</h3>
-          <p>A month-by-year heatmap shows normal tourism seasonality, the COVID-era interruption and the return of visitor arrivals after borders reopened.</p>
+          <p>A month-by-year heatmap shows how arrivals change across both time and season. Darker cells represent higher monthly arrivals, while the pale 2020–2021 band shows the border-closure period before recovery returned in 2023–2025.</p>
         </div>
         <div id="chart_seasonality" class="vis-container"></div>
         <p class="source-note">Source: Australian Bureau of Statistics, Overseas Arrivals and Departures, Australia.</p>
@@ -233,7 +232,7 @@
       <div class="chart-card full-width">
         <div class="chart-text">
           <h3>Top airport passenger trends</h3>
-          <p>A multi-line chart compares monthly traffic trends for five major airports, showing the drop during border closures and the uneven recovery after travel resumed.</p>
+          <p>A multi-line chart compares monthly traffic trends for five major airports. The sharp drop in 2020 shows the travel shutdown, while the different recovery paths after 2022 show that airport traffic did not return evenly across the network.</p>
         </div>
         <div id="chart_airport_trends" class="vis-container"></div>
         <p class="source-note">Source: BITRE Monthly Airport Traffic Data.</p>

@@ -2,9 +2,31 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": "container",
   "height": 360,
+  "params": [
+    {
+      "name": "selected_year",
+      "value": 2025,
+      "bind": {
+        "input": "select",
+        "options": [
+          2019,
+          2020,
+          2021,
+          2024,
+          2025
+        ],
+        "name": "Select year: "
+      }
+    }
+  ],
   "data": {
-    "url": "data/top10_source_countries_2025.csv"
+    "url": "data/top10_source_countries_by_year.csv"
   },
+  "transform": [
+    {
+      "filter": "datum.year == selected_year"
+    }
+  ],
   "layer": [
     {
       "mark": {
@@ -18,8 +40,8 @@
           "field": "country",
           "type": "nominal",
           "sort": {
-            "field": "total_arrivals",
-            "order": "descending"
+            "field": "rank",
+            "order": "ascending"
           },
           "title": null,
           "axis": {
@@ -29,7 +51,13 @@
         "x": {
           "field": "total_arrivals",
           "type": "quantitative",
-          "title": "Visitor arrivals in 2025",
+          "title": "Visitor arrivals",
+          "scale": {
+            "domain": [
+              0,
+              1700000
+            ]
+          },
           "axis": {
             "format": "~s"
           }
@@ -50,8 +78,8 @@
           "field": "country",
           "type": "nominal",
           "sort": {
-            "field": "total_arrivals",
-            "order": "descending"
+            "field": "rank",
+            "order": "ascending"
           },
           "title": null
         },
@@ -71,9 +99,14 @@
             "title": "Country"
           },
           {
+            "field": "year",
+            "type": "ordinal",
+            "title": "Year"
+          },
+          {
             "field": "total_arrivals",
             "type": "quantitative",
-            "title": "Arrivals in 2025",
+            "title": "Arrivals",
             "format": ","
           }
         ]
@@ -95,8 +128,8 @@
           "field": "country",
           "type": "nominal",
           "sort": {
-            "field": "total_arrivals",
-            "order": "descending"
+            "field": "rank",
+            "order": "ascending"
           }
         },
         "x": {
@@ -106,7 +139,7 @@
         "text": {
           "field": "total_arrivals",
           "type": "quantitative",
-          "format": "~s"
+          "format": ".2s"
         }
       }
     }

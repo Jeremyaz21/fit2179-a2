@@ -419,64 +419,86 @@ var worldMap = {
   "width": "container",
   "height": 460,
 
-  "data": {
-    "url": "https://vega.github.io/vega-datasets/data/world-110m.json",
-    "format": {
-      "type": "topojson",
-      "feature": "countries"
-    }
-  },
-
-  "transform": [
+  "layer": [
     {
-      "lookup": "id",
-      "from": {
-        "data": {
-          "url": "data/country_arrivals_2025_map.csv"
+      "data": {
+        "url": "https://vega.github.io/vega-datasets/data/world-110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      "projection": {
+        "type": "equalEarth"
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e7be64",
+        "stroke": "#ffffff",
+        "strokeWidth": 0.4
+      }
+    },
+
+    {
+      "data": {
+        "url": "https://vega.github.io/vega-datasets/data/world-110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      "transform": [
+        {
+          "lookup": "id",
+          "from": {
+            "data": {
+              "url": "data/country_arrivals_2025_map.csv"
+            },
+            "key": "id",
+            "fields": ["country", "total_arrivals"]
+          }
         },
-        "key": "id",
-        "fields": ["country", "total_arrivals"]
+        {
+          "filter": "isValid(datum.total_arrivals)"
+        }
+      ],
+      "projection": {
+        "type": "equalEarth"
+      },
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#ffffff",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "color": {
+          "field": "total_arrivals",
+          "type": "quantitative",
+          "title": "Visitor arrivals, 2025",
+          "scale": {
+            "scheme": ["#9ecae1", "#08519c"]
+          },
+          "legend": {
+            "orient": "bottom",
+            "format": "~s"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "country",
+            "type": "nominal",
+            "title": "Country"
+          },
+          {
+            "field": "total_arrivals",
+            "type": "quantitative",
+            "title": "Arrivals in 2025",
+            "format": ","
+          }
+        ]
       }
     }
   ],
-
-  "projection": {
-    "type": "equalEarth"
-  },
-
-  "mark": {
-    "type": "geoshape",
-    "stroke": "white",
-    "strokeWidth": 0.4
-  },
-
-  "encoding": {
-    "color": {
-      "field": "total_arrivals",
-      "type": "quantitative",
-      "title": "Visitor arrivals, 2025",
-      "scale": {
-        "scheme": "blues"
-      },
-      "legend": {
-        "orient": "bottom",
-        "format": "~s"
-      }
-    },
-    "tooltip": [
-      {
-        "field": "country",
-        "type": "nominal",
-        "title": "Country"
-      },
-      {
-        "field": "total_arrivals",
-        "type": "quantitative",
-        "title": "Arrivals in 2025",
-        "format": ","
-      }
-    ]
-  },
 
   "config": {
     "view": {
@@ -491,18 +513,33 @@ var worldMap = {
   }
 };
 
-
-
-vegaEmbed("#chart_world_map", worldMap, {"actions": false});
 vegaEmbed("#chart_world_map", worldMap, {"actions": false});
 var topCountries = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": "container",
   "height": 360,
 
+  "params": [
+    {
+      "name": "selected_year",
+      "value": 2025,
+      "bind": {
+        "input": "select",
+        "options": [2019, 2020, 2021, 2024, 2025],
+        "name": "Select year: "
+      }
+    }
+  ],
+
   "data": {
-    "url": "data/top10_source_countries_2025.csv"
+    "url": "data/top10_source_countries_by_year.csv"
   },
+
+  "transform": [
+    {
+      "filter": "datum.year == selected_year"
+    }
+  ],
 
   "layer": [
     {
@@ -517,8 +554,8 @@ var topCountries = {
           "field": "country",
           "type": "nominal",
           "sort": {
-            "field": "total_arrivals",
-            "order": "descending"
+            "field": "rank",
+            "order": "ascending"
           },
           "title": null,
           "axis": {
@@ -526,13 +563,16 @@ var topCountries = {
           }
         },
         "x": {
-          "field": "total_arrivals",
-          "type": "quantitative",
-          "title": "Visitor arrivals in 2025",
-          "axis": {
-            "format": "~s"
-          }
-        }
+      "field": "total_arrivals",
+      "type": "quantitative",
+      "title": "Visitor arrivals",
+      "scale": {
+        "domain": [0, 1700000]
+      },
+      "axis": {
+        "format": "~s"
+      }
+    }
       }
     },
 
@@ -550,8 +590,8 @@ var topCountries = {
           "field": "country",
           "type": "nominal",
           "sort": {
-            "field": "total_arrivals",
-            "order": "descending"
+            "field": "rank",
+            "order": "ascending"
           },
           "title": null
         },
@@ -571,9 +611,14 @@ var topCountries = {
             "title": "Country"
           },
           {
+            "field": "year",
+            "type": "ordinal",
+            "title": "Year"
+          },
+          {
             "field": "total_arrivals",
             "type": "quantitative",
-            "title": "Arrivals in 2025",
+            "title": "Arrivals",
             "format": ","
           }
         ]
@@ -596,8 +641,8 @@ var topCountries = {
           "field": "country",
           "type": "nominal",
           "sort": {
-            "field": "total_arrivals",
-            "order": "descending"
+            "field": "rank",
+            "order": "ascending"
           }
         },
         "x": {
@@ -607,7 +652,7 @@ var topCountries = {
         "text": {
           "field": "total_arrivals",
           "type": "quantitative",
-          "format": "~s"
+          "format": ".2s"
         }
       }
     }

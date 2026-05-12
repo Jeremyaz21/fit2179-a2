@@ -2,63 +2,91 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": "container",
   "height": 460,
-  "data": {
-    "url": "https://vega.github.io/vega-datasets/data/world-110m.json",
-    "format": {
-      "type": "topojson",
-      "feature": "countries"
-    }
-  },
-  "transform": [
+  "layer": [
     {
-      "lookup": "id",
-      "from": {
-        "data": {
-          "url": "data/country_arrivals_2025_map.csv"
+      "data": {
+        "url": "https://vega.github.io/vega-datasets/data/world-110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      "projection": {
+        "type": "equalEarth"
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e7be64",
+        "stroke": "#ffffff",
+        "strokeWidth": 0.4
+      }
+    },
+    {
+      "data": {
+        "url": "https://vega.github.io/vega-datasets/data/world-110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      "transform": [
+        {
+          "lookup": "id",
+          "from": {
+            "data": {
+              "url": "data/country_arrivals_2025_map.csv"
+            },
+            "key": "id",
+            "fields": [
+              "country",
+              "total_arrivals"
+            ]
+          }
         },
-        "key": "id",
-        "fields": [
-          "country",
-          "total_arrivals"
+        {
+          "filter": "isValid(datum.total_arrivals)"
+        }
+      ],
+      "projection": {
+        "type": "equalEarth"
+      },
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#ffffff",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "color": {
+          "field": "total_arrivals",
+          "type": "quantitative",
+          "title": "Visitor arrivals, 2025",
+          "scale": {
+            "scheme": [
+              "#9ecae1",
+              "#08519c"
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "format": "~s"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "country",
+            "type": "nominal",
+            "title": "Country"
+          },
+          {
+            "field": "total_arrivals",
+            "type": "quantitative",
+            "title": "Arrivals in 2025",
+            "format": ","
+          }
         ]
       }
     }
   ],
-  "projection": {
-    "type": "equalEarth"
-  },
-  "mark": {
-    "type": "geoshape",
-    "stroke": "white",
-    "strokeWidth": 0.4
-  },
-  "encoding": {
-    "color": {
-      "field": "total_arrivals",
-      "type": "quantitative",
-      "title": "Visitor arrivals, 2025",
-      "scale": {
-        "scheme": "blues"
-      },
-      "legend": {
-        "orient": "bottom",
-        "format": "~s"
-      }
-    },
-    "tooltip": [
-      {
-        "field": "country",
-        "type": "nominal",
-        "title": "Country"
-      },
-      {
-        "field": "total_arrivals",
-        "type": "quantitative",
-        "title": "Arrivals in 2025",
-        "format": ","
-      }
-    ]
-  },
   "config": {
     "view": {
       "stroke": null
