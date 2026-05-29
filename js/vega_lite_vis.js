@@ -567,7 +567,7 @@ var topCountries = {
       "type": "quantitative",
       "title": "Visitor arrivals",
       "scale": {
-        "domain": [0, 1700000]
+        "zero": true
       },
       "axis": {
         "format": "~s"
@@ -652,7 +652,7 @@ var topCountries = {
         "text": {
           "field": "total_arrivals",
           "type": "quantitative",
-          "format": ".2s"
+          "format": ".3s"
         }
       }
     }
@@ -1194,7 +1194,7 @@ var airportMap = {
       },
       "mark": {
         "type": "circle",
-        "opacity": 0.82,
+        "opacity": 0.42,
         "stroke": "white",
         "strokeWidth": 1.5
       },
@@ -1714,6 +1714,17 @@ var airportTrends = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": "container",
   "height": 390,
+  "params": [
+  {
+    "name": "highlight_airport",
+    "select": {
+      "type": "point",
+      "fields": ["airport"],
+      "on": "mouseover",
+      "clear": "mouseout"
+    }
+  }
+],
 
   "data": {
     "url": "data/airport_traffic.csv"
@@ -1760,6 +1771,7 @@ var airportTrends = {
       "type": "nominal",
       "title": "Airport",
       "scale": {
+        
         "range": ["#2563eb", "#16a34a", "#f97316", "#7c3aed", "#64748b"]
       },
       "legend": {
@@ -1769,7 +1781,7 @@ var airportTrends = {
     },
     "tooltip": [
       {
-        "field": "airport",
+        "field": "airport_label",
         "type": "nominal",
         "title": "Airport"
       },

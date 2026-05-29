@@ -53,10 +53,7 @@
           "type": "quantitative",
           "title": "Visitor arrivals",
           "scale": {
-            "domain": [
-              0,
-              1700000
-            ]
+            "zero": true
           },
           "axis": {
             "format": "~s"
@@ -139,7 +136,7 @@
         "text": {
           "field": "total_arrivals",
           "type": "quantitative",
-          "format": ".2s"
+          "format": ".3s"
         }
       }
     }

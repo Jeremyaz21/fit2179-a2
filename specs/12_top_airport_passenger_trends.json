@@ -2,6 +2,19 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": "container",
   "height": 390,
+  "params": [
+    {
+      "name": "highlight_airport",
+      "select": {
+        "type": "point",
+        "fields": [
+          "airport"
+        ],
+        "on": "mouseover",
+        "clear": "mouseout"
+      }
+    }
+  ],
   "data": {
     "url": "data/airport_traffic.csv"
   },
@@ -59,7 +72,7 @@
     },
     "tooltip": [
       {
-        "field": "airport",
+        "field": "airport_label",
         "type": "nominal",
         "title": "Airport"
       },

@@ -76,7 +76,7 @@
       },
       "mark": {
         "type": "circle",
-        "opacity": 0.82,
+        "opacity": 0.42,
         "stroke": "white",
         "strokeWidth": 1.5
       },
